@@ -1,0 +1,60 @@
+﻿@page "/"
+@using NotationCalculator.Data
+@inject NotationConvertService NotationConverter
+
+
+<div class="row">
+    <div class="col">
+        <form class="form">
+            <div class="form-group">
+                <label for="num1">Первое число</label>
+                <input type="number" id="num1" class="form-control" placeholder="Введите первое число"/>
+            </div>
+            <div class="form-group">
+                <label for="ci1">Система счисления</label>
+                  <select id="ci1" class="form-control">
+                    @for (var i = 0; i < 10; i++)
+                    {
+                        <option>@i</option>
+                    }
+                    <option selected>Выберите...</option>                    
+                  </select>                      
+            </div>
+            <div class="form-group">
+                <label for="num2">Второе число</label>
+                <input type="number" id="num2" class="form-control" placeholder="Введите второе число"/>
+            </div>
+            <div class="form-group">
+                <label for="ci2">Система счисления</label>
+                    <select id="ci2" class="form-control">
+                        @for (var i = 0; i < 10; i++)
+                        {
+                            <option>@i</option>
+                        }
+                        <option selected>Выберите...</option>                    
+                    </select>                 
+            </div>
+            <div class="form-group d-flex justify-content-center align-items-center container ">
+                <input type="submit" value="Вычислить" class="btn btn-primary"/>
+            </div>
+        </form>        
+    </div>
+    <div class="col">
+        <p>Value: @Propert</p>
+    </div>
+    <div class="col"></div>
+
+
+</div>
+
+@code
+{
+    [Parameter]
+    public string Propert { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        Propert = NotationConverter.A();
+    }
+
+}
