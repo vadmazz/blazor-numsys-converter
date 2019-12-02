@@ -1,10 +1,23 @@
-﻿namespace NotationCalculator.Data
+﻿using System;
+using System.Threading.Tasks;
+using NotationCalculator.Data.NumeralSystems;
+
+namespace NotationCalculator.Data
 {
     public class NotationConvertService
     {
-        public string A()
+        public string Convert(string par)
         {
-            return "adsasd";
+            try
+            {
+                var d = new BinarySystem(par);
+                return d.ConvertToDecimal();
+            }
+            catch (WrongNumberException e)
+            {
+                return "Число не принадлежит системе счисления!";
+            }
         }
+        
     }
 }

@@ -8,7 +8,7 @@
         <form class="form">
             <div class="form-group">
                 <label for="num1">Первое число</label>
-                <input type="number" id="num1" class="form-control" placeholder="Введите первое число"/>
+                <input type="number" id="num1" @bind="value" class="form-control" placeholder="Введите первое число"/>
             </div>
             <div class="form-group">
                 <label for="ci1">Система счисления</label>
@@ -35,12 +35,13 @@
                     </select>                 
             </div>
             <div class="form-group d-flex justify-content-center align-items-center container ">
-                <input type="submit" value="Вычислить" class="btn btn-primary"/>
+                
+                <input type="button" @onclick="Click" value="Вычислить" class="btn btn-primary" />
             </div>
-        </form>        
+        </form>          
     </div>
     <div class="col">
-        <p>Value: @Propert</p>
+        <p>@value </p>
     </div>
     <div class="col"></div>
 
@@ -49,12 +50,11 @@
 
 @code
 {
-    [Parameter]
-    public string Propert { get; set; }
-    
-    protected override async Task OnInitializedAsync()
-    {
-        Propert = NotationConverter.A();
-    }
+    string value;
 
+    void Click()
+    {
+        value = NotationConverter.Convert(value);
+        Console.WriteLine(value);
+    }
 }
