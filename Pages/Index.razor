@@ -2,59 +2,25 @@
 @using NotationCalculator.Data
 @inject NotationConvertService NotationConverter
 
-
-<div class="row">
-    <div class="col">
-        <form class="form">
-            <div class="form-group">
-                <label for="num1">Первое число</label>
-                <input type="number" id="num1" @bind="value" class="form-control" placeholder="Введите первое число"/>
-            </div>
-            <div class="form-group">
-                <label for="ci1">Система счисления</label>
-                  <select id="ci1" class="form-control">
-                    @for (var i = 0; i < 10; i++)
-                    {
-                        <option>@i</option>
-                    }
-                    <option selected>Выберите...</option>                    
-                  </select>                      
-            </div>
-            <div class="form-group">
-                <label for="num2">Второе число</label>
-                <input type="number" id="num2" class="form-control" placeholder="Введите второе число"/>
-            </div>
-            <div class="form-group">
-                <label for="ci2">Система счисления</label>
-                    <select id="ci2" class="form-control">
-                        @for (var i = 0; i < 10; i++)
-                        {
-                            <option>@i</option>
-                        }
-                        <option selected>Выберите...</option>                    
-                    </select>                 
-            </div>
-            <div class="form-group d-flex justify-content-center align-items-center container ">
-                
-                <input type="button" @onclick="Click" value="Вычислить" class="btn btn-primary" />
-            </div>
-        </form>          
+<div id="container">
+    <div class="row">
+        <div class="col-md-12">
+            <nav>
+                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" data-toggle="tab" href="#menu1" role="tab" aria-controls="menu1" aria-selected="true">Конвертер 1</a>
+                    <a class="nav-item nav-link"  data-toggle="tab" href="#menu2" role="tab" aria-controls="menu2" aria-selected="false">Конвертер 2</a>
+                    <a class="nav-item nav-link"  data-toggle="tab" href="#menu3" role="tab" aria-controls="menu3" aria-selected="false">Конвертер 3</a>
+                    <a class="nav-item nav-link"  data-toggle="tab" href="#menu4" role="tab" aria-controls="menu3" aria-selected="false">Конвертер 4</a>
+                </div>
+            </nav>
+        </div>
     </div>
-    <div class="col">
-        <p>@value </p>
+    
+    <div class="tab-content">
+      <div class="tab-pane active container" id="menu1"><NumSysForm ResultModalId="0"/></div>
+      <div class="tab-pane container" id="menu2"><NumSysForm ResultModalId="1"/></div>
+      <div class="tab-pane container" id="menu3"><NumSysForm ResultModalId="2"/></div>
+      <div class="tab-pane container" id="menu4"><NumSysForm ResultModalId="3"/></div>
     </div>
-    <div class="col"></div>
-
-
+    
 </div>
-
-@code
-{
-    string value;
-
-    void Click()
-    {
-        value = NotationConverter.Convert(value);
-        Console.WriteLine(value);
-    }
-}

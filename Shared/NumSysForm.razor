@@ -1,0 +1,78 @@
+﻿@using NotationCalculator.Data
+@inject NotationConvertService NotationConverter
+
+<div class="row">
+    <div class="col">
+        <form class="form">
+            <div class="form-group">
+                <label for="num1">Число</label>
+                <input type="number" id="num1" @bind="value" class="form-control" placeholder="Введите число"/>
+            </div>
+            <div class="form-group">
+                <label for="ci1">Текущая система счисления</label>
+                <input type="number" id="ci1" @bind="ns1" class="form-control" placeholder="Введите систему счисления"/>                     
+            </div>            
+            <div class="form-group">
+                <label for="ci2">Система счисления</label>
+                <input type="number" id="ci2" @bind="ns2" class="form-control" placeholder="Введите систему счисления"/>        
+            </div>
+            <div class="form-group d-flex justify-content-center align-items-center container ">               
+                <input type="button" data-toggle="modal" data-target="#@ResultModalId" @onclick="Click" value="Вычислить" class="btn btn-primary" />
+            </div>
+        </form>        
+    <span>@result</span>
+    </div>
+
+<div class="modal fade" id="@ResultModalId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Результат вычисления</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        @if ( isExistResponse && response.Status == ConverterResponse.Ok)
+        {
+            <p>@value<sub>@ns1</sub> = @response.Message<sub>@ns2</sub></p>
+        }
+        @if ( isExistResponse && response.Status == ConverterResponse.Error)
+        {
+            <p>@result</p>
+        }
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>        
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+@code
+{
+    [Parameter]
+    public string ResultModalId { get; set; }
+
+    ResultWithResponse response;
+    bool isExistResponse = false;
+    
+    string value;
+    string ns2;
+    string ns1;
+    string result;
+    string res;
+
+    void Click()
+    {
+        response = NotationConverter.Convert(value, ns1, ns2);
+        if (response.Status == ConverterResponse.Error)
+            result = response.Message;
+        if (response.Status == ConverterResponse.Ok)
+            result = $"Результат перевода\nЧисло {value} в {ns1}-ой системы в {ns2}-ой системе равно: {response.Message}";
+        isExistResponse = true;
+    }
+
+}

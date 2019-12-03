@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace NotationCalculator.Data
 {
-    public abstract class NumeralSystem
+    public class NumeralSystem
     {
         private readonly List<char> _alphabet;
         protected string Value;
-        protected NumeralSystem(string alphabet, string number)
+        public NumeralSystem(string alphabet, string number)
         {
             if (alphabet != null && number != null)
             {
@@ -24,6 +24,19 @@ namespace NotationCalculator.Data
         }
         private bool Contains(string number) =>
             number.All(x => _alphabet.Contains(x));
-        public abstract string ConvertToDecimal();
+
+        public virtual string ConvertToDecimal()
+        {
+            var result = 0;
+            var power = _alphabet.Count;
+            
+            for (var i = 0; i < Value.Length; ++i)   
+            {
+                var val = (int)Char.GetNumericValue(Value[Value.Length - i - 1]);
+                result += val * (int) Math.Pow(power, i);
+            }
+
+            return result.ToString();
+        }
     }
 }
