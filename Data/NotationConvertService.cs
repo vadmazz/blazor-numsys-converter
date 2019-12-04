@@ -34,9 +34,11 @@ namespace NotationCalculator.Data
             {
                 var quaternarySystem = new NumeralSystem(CreateAlphabet(alphabet1), val1);
                 var aimSystem = new NumeralSystem(CreateAlphabet(alphabet2));
+
                 if (ns2 == "10")
+                {
                     return new ResultWithResponse(quaternarySystem.ConvertToDecimal(), ConverterResponse.Ok);
-                
+                }
                 return new ResultWithResponse(quaternarySystem.ConvertToAny(aimSystem), ConverterResponse.Ok);
             }
             catch (WrongNumberException)
