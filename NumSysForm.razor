@@ -20,7 +20,7 @@
                 <input type="button" data-toggle="modal" data-target="#@ResultModalId" @onclick="Click" value="Вычислить" class="btn btn-primary" />
             </div>
         </form>        
-    <span>@result</span>
+    @result
     </div>
 
 <div class="modal fade" id="@ResultModalId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -39,7 +39,7 @@
         }
         @if ( isExistResponse && response.Status == ConverterResponse.Error)
         {
-            <p>@result</p>
+            <p>@response.Message</p>
         }
       </div>
       <div class="modal-footer">
@@ -70,7 +70,7 @@
         if (response.Status == ConverterResponse.Error)
             result = response.Message;
         if (response.Status == ConverterResponse.Ok)
-            result = $"Результат перевода\nЧисло {value} в {ns1}-ой системы в {ns2}-ой системе равно: {response.Message}";
+            result += $"Результат перевода числа {value} в {ns1}-ой системы в {ns2}-ой системе равно: {response.Message}\n";
         isExistResponse = true;
     }
 
